@@ -1,0 +1,118 @@
+# Import each class individually
+# I imported each class from my 'Class' module to create objects for each one
+from Class import Ebook
+from Class import Mystery
+from Class import Drama
+from Class import Catalog
+from Class import Customer
+from Class import ShoppingCart
+from Class import Order
+from Class import Discount
+from Class import Loyalty
+from Class import Account
+from Class import Payment
+from Class import Vat
+from Class import Person
+from Class import Invoice
+
+
+# Object 1 - Ebook
+# I created an Ebook object with details like author, title, genre, price, and publication date
+ebook1 = Ebook(author="Harper Lee", title="To Kill a Mockingbird", genre="Fiction", price=12.99, publication_date="1960")
+print("Object 1 - Ebook:")
+print(ebook1)
+
+# Object 2 - Mystery
+# I created a Mystery object, a type of Ebook, with additional details for average length and mystery level
+mystery_book = Mystery(author="Agatha Christie", title="The Murder of Roger Ackroyd", price=30.0, publication_date="1926-06-30", average_length=320, mystery_level="High")
+print("Object 2 - Mystery:")
+print(mystery_book)
+
+# Object 3 - Drama
+# I created a Drama object, another type of Ebook, with details about dramatic tension
+drama_book = Drama(author="Arthur Miller", title="Death of a Salesman", price=15.0, publication_date="1949-02-10", dramatic_tension="High")
+print("Object 3 - Drama:")
+print(drama_book)
+
+# Object 4 - Catalog
+# I created a Catalog object and added multiple ebooks to it using add_ebook()
+catalog = Catalog(catalog_id="CAT123", name="Literature Classics")
+catalog.add_ebook(ebook1)
+catalog.add_ebook(mystery_book)
+catalog.add_ebook(drama_book)
+print("Object 4 - Catalog:")
+print("Catalog contents:")
+print(catalog)
+
+# Object 5 - Person
+# I created a Person object to store basic information like name and email
+person_hamda = Person(name="Hamda Sami", email="hamda.sami@gmail.com")
+print("Object 5 - Person:")
+print(person_hamda)
+
+# Object 6 - Account
+# I created an Account object to store account details for a customer, including username and password
+account_hamda = Account(customer_id="CUST001", username="hamda.sami", password="hamda423")
+print("Object 6 - Account:")
+print(account_hamda)
+
+
+# Object 7 - Customer
+# I created a Customer object to store customer details and linked it to an account
+customer_hamda = Customer(name="Hamda Sami", contact_number="0501234567", email="hamda.sami@gmail.com", loyalty_member=True)
+customer_hamda.set_account(account_hamda)  # I linked the customer to the account
+print("Object 7 - Customer:")
+print(customer_hamda)
+
+# Object 8 - ShoppingCart
+# I created a ShoppingCart object and added items to it
+shopping_cart = ShoppingCart(cart_id="CART001")
+shopping_cart.add_item(ebook1)  # I added the Ebook item to the cart
+shopping_cart.add_item(mystery_book)  # I added the Mystery item to the cart
+print("Object 8 - ShoppingCart:")
+print("Shopping Cart:")
+print(shopping_cart)
+print("Total Price: DHS", shopping_cart.calculate_total_price())  # I calculated the total price of items in the cart
+
+# Object 9 - Order
+# I created an Order object using the total price from the shopping cart
+order = Order(order_id="ORD001", order_date="2024-11-06", total_price=shopping_cart.calculate_total_price())
+print("Object 9 - Order:")
+print(order)
+
+# Object 10 - Discount
+# I created a Discount object to apply a loyalty discount to the order's total price
+loyalty_discount = Discount(discount_type="Loyalty Program", discount_id="DISC123", values_amount=0.1)
+discounted_total = loyalty_discount.apply_discount(order.total_price)  # I applied the discount to the total price
+print("Object 10 - Discount:")
+print(loyalty_discount)
+print("Discounted Amount:", discounted_total)
+
+# Object 11 - Loyalty
+# I created a Loyalty object to represent a loyalty program with a discount rate, membership duration, and loyalty status.
+loyalty_program = Loyalty(loyalty_discount_rate=0.1, membership_duration=12, loyalty_member=True)
+print("Object 11 - Loyalty:")
+print(loyalty_program)
+
+
+# Object 12 - Vat
+# I created a Vat object to calculate VAT on the discounted amount
+vat_rate = Vat(rateNumber=0.05)
+vat_amount = vat_rate.calculate_vat(discounted_total)  # I calculated VAT on the discounted amount
+print("Object 12 - Vat:")
+print(vat_rate)
+print("Calculated VAT Amount:", vat_amount)
+
+# Object 13 - Invoice
+# I created an Invoice object to store billing details, including tax, status, and the total amount with VAT
+invoice_total = discounted_total + vat_amount
+invoice = Invoice(invoice_id="INV001", tax=5.0, status="Paid", total_amount=invoice_total)
+print("Object 13 - Invoice:")
+print(invoice)
+
+# Object 14 - Payment
+# I created a Payment object to manage payment details, such as payment method and status
+payment = Payment(paymentID="PAY001", paymentAmount=invoice.total_amount, paymentMethod="Credit Card", status="Complete")
+print("Object 14 - Payment:")
+print(payment)
+print("Payment Complete:", payment.is_payment_complete())  # I checked if the payment status is complete
