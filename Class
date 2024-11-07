@@ -1,0 +1,230 @@
+# Class 1 - Ebook
+# I created an Ebook class to store details about ebooks.
+class Ebook:
+    def __init__(self, author, title, genre, price, publication_date):
+        # I used these attributes to hold the basic information of an ebook.
+        self.author = author  # The author of the ebook
+        self.title = title  # The title of the ebook
+        self.genre = genre  # The genre of the ebook
+        self.price = price  # The price of the ebook
+        self.publication_date = publication_date  # The publication date of the ebook
+
+    def __str__(self):
+        # This method gives a nice way to display the ebook details.
+        return f"Ebook: {self.title} by {self.author} | Genre: {self.genre} | Price: {self.price} | Published: {self.publication_date}"
+
+
+# Class 2 - Mystery
+# I created a Mystery class as a type of Ebook, with extra details specific to mystery books.
+class Mystery(Ebook):
+    def __init__(self, author, title, price, publication_date, average_length, mystery_level):
+        # I used super() to inherit the Ebook properties and set the genre to "Mystery".
+        super().__init__(author, title, genre="Mystery", price=price, publication_date=publication_date)
+        self.average_length = average_length  # The average length of the mystery book
+        self.mystery_level = mystery_level  # The level of mystery in the book
+
+    def __str__(self):
+        # This method adds specific details to the ebook display for mystery books.
+        return super().__str__() + f" - Length: {self.average_length} pages, Mystery Level: {self.mystery_level}"
+
+
+# Class 3 - Drama
+# I created a Drama class as a type of Ebook, with extra details for drama books.
+class Drama(Ebook):
+    def __init__(self, author, title, price, publication_date, dramatic_tension):
+        # I used super() to inherit the Ebook properties and set the genre to "Drama".
+        super().__init__(author, title, genre="Drama", price=price, publication_date=publication_date)
+        self.dramatic_tension = dramatic_tension  # The level of dramatic tension in the book
+
+    def __str__(self):
+        # This method adds specific details to the ebook display for drama books.
+        return super().__str__() + f" | Dramatic Tension: {self.dramatic_tension}"
+
+
+# Class 4 - Catalog
+# I created a Catalog class to hold a collection of ebooks.
+class Catalog:
+    def __init__(self, catalog_id, name):
+        # I used these attributes to manage the catalog.
+        self.catalog_id = catalog_id  # The unique ID of the catalog
+        self.name = name  # The name of the catalog
+        self.total_ebooks = 0  # The total count of ebooks in the catalog
+        self.ebooks = []  # A list to store all ebooks in the catalog
+
+    def add_ebook(self, ebook):
+        # I used this method to add an ebook to the catalog.
+        self.ebooks.append(ebook)
+        self.total_ebooks += 1
+
+    def remove_ebook(self, ebook):
+        # I used this method to remove an ebook from the catalog.
+        if ebook in self.ebooks:
+            self.ebooks.remove(ebook)
+            self.total_ebooks -= 1
+
+    def __str__(self):
+        # This method displays the catalog's details and all ebooks in it.
+        return f"Catalog: {self.name} (ID: {self.catalog_id}) | Total Ebooks: {self.total_ebooks}\n" + "\n".join(str(ebook) for ebook in self.ebooks)
+
+
+# Class 5 - Person
+# I created a Person class to store personal information like name and email.
+class Person:
+    def __init__(self, name, email):
+        self.name = name  # The name of the person
+        self.email = email  # The email of the person
+
+    def __str__(self):
+        # This method formats the person's information for display.
+        return f"Person: {self.name} | Email: {self.email}"
+
+
+# Class 6 - Account
+# I created an Account class to store account details related to a customer.
+class Account:
+   def __init__(self, customer_id, username, password):
+       self.customer_id = customer_id  # The customer ID linked to this account
+       self.username = username  # The username of the account
+       self.password = password  # The password for the account
+
+   def __str__(self):
+       # This method formats the account details for display, including the password.
+       return f"Account Username: {self.username} | Customer ID: {self.customer_id} | Password: {self.password}"
+
+
+# Class 7 - Customer
+# I created a Customer class to manage customer information and link it to an account.
+class Customer:
+    def __init__(self, name, contact_number, email, loyalty_member=False):
+        self.name = name  # The customer's name
+        self.contact_number = contact_number  # The customer's contact number
+        self.email = email  # The customer's email address
+        self.loyalty_member = loyalty_member  # Whether the customer is a loyalty member
+
+    def set_account(self, account):
+        # I used this method to link an account to the customer.
+        self.account = account
+
+    def __str__(self):
+        # This method formats the customer details, including loyalty status.
+        loyalty_status = "Yes" if self.loyalty_member else "No"
+        return f"Customer: {self.name} | Contact: {self.contact_number} | Email: {self.email} | Loyalty Member: {loyalty_status}"
+
+
+# Class 8 - ShoppingCart
+# I created a ShoppingCart class to handle items added by a customer for purchase.
+class ShoppingCart:
+    def __init__(self, cart_id):
+        self.cart_id = cart_id  # The unique ID of the shopping cart
+        self.items = []  # A list to store items in the cart
+        self.total_items = 0  # The total count of items in the cart
+
+    def add_item(self, item):
+        # I used this method to add an item to the cart.
+        self.items.append(item)
+        self.total_items += 1
+
+    def remove_item(self, item):
+        # I used this method to remove an item from the cart.
+        if item in self.items:
+            self.items.remove(item)
+            self.total_items -= 1
+
+    def calculate_total_price(self):
+        # This method calculates the total price of all items in the cart.
+        return sum(item.price for item in self.items)
+
+    def __str__(self):
+        # This method displays the cart's details and all items in it.
+        return f"ShoppingCart ID: {self.cart_id} | Total Items: {self.total_items}\n" + "\n".join(str(item) for item in self.items)
+
+
+# Class 9 - Order
+# I created an Order class to store order details like order date and total price.
+class Order:
+    def __init__(self, order_id, order_date, total_price):
+        self.order_id = order_id  # The unique ID of the order
+        self.order_date = order_date  # The date when the order was placed
+        self.total_price = total_price  # The total price of the order
+
+    def __str__(self):
+        # This method formats the order details for display.
+        return f"Order ID: {self.order_id} | Order Date: {self.order_date} | Total Price: {self.total_price}"
+
+
+# Class 10 - Discount
+# I created a Discount class to apply a discount to an amount based on a discount rate or amount.
+class Discount:
+    def __init__(self, discount_type, discount_id, values_amount):
+        self.discount_type = discount_type  # The type of discount (e.g., loyalty program)
+        self.discount_id = discount_id  # The unique ID of the discount
+        self.values_amount = values_amount  # The value of the discount
+
+    def apply_discount(self, amount):
+        # This method applies the discount to a given amount.
+        return amount * (1 - self.values_amount) if self.values_amount < 1 else amount - self.values_amount
+
+    def __str__(self):
+        # This method displays discount details.
+        return f"Discount ID: {self.discount_id} | Type: {self.discount_type} | Value Amount: {self.values_amount}"
+
+
+# Class 11 - Loyalty
+# I created a Loyalty class to store loyalty program details like discount rate, membership duration, and loyalty status.
+class Loyalty:
+    def __init__(self, loyalty_discount_rate, membership_duration, loyalty_member):
+        self.loyalty_discount_rate = loyalty_discount_rate  # The discount rate for loyalty members
+        self.membership_duration = membership_duration  # The duration of the loyalty membership in months
+        self.loyalty_member = loyalty_member  # Whether the member is part of the loyalty program
+
+    def __str__(self):
+        # This method formats the loyalty program details for display.
+        loyalty_status = "Yes" if self.loyalty_member else "No"
+        return f"Loyalty Discount Rate: {self.loyalty_discount_rate * 100}% | Membership Duration: {self.membership_duration} months | Loyalty Member: {loyalty_status}"
+
+
+# Class 12 - Vat
+# I created a Vat class to calculate VAT based on a given rate.
+class Vat:
+    def __init__(self, rateNumber):
+        self.rateNumber = rateNumber  # The VAT rate number
+
+    def calculate_vat(self, amount):
+        # This method calculates the VAT on a given amount.
+        return amount * self.rateNumber
+
+    def __str__(self):
+        # This method displays the VAT rate.
+        return f"VAT Rate Number: {self.rateNumber * 100}%"
+
+
+# Class 13 - Invoice
+# I created an Invoice class to manage billing details, including tax and total amount.
+class Invoice:
+    def __init__(self, tax, invoice_id, status, total_amount):
+        self.tax = tax  # The tax percentage applied to the invoice
+        self.invoice_id = invoice_id  # The unique ID of the invoice
+        self.status = status  # The status of the invoice (e.g., paid or pending)
+        self.total_amount = total_amount  # The total amount due on the invoice
+
+    def __str__(self):
+        # This method formats the invoice details for display.
+        return f"Invoice ID: {self.invoice_id} | Tax: {self.tax}% | Status: {self.status} | Total Amount: {self.total_amount}"
+
+
+# Class 14 - Payment
+# I created a Payment class to handle payment details like payment method and status.
+class Payment:
+    def __init__(self, paymentID, paymentAmount, paymentMethod, status):
+        self.paymentID = paymentID  # The unique ID of the payment
+        self.paymentAmount = paymentAmount  # The total payment amount
+        self.paymentMethod = paymentMethod  # The method of payment used
+        self.status = status  # The payment status (e.g., complete or pending)
+
+    def is_payment_complete(self):
+        # This method checks if the payment status is marked as "complete".
+        return self.status.lower() == "complete"
+
+    def __str__(self):
+        # This method formats the payment details for display.
+        return f"Payment ID: {self.paymentID} | Method: {self.paymentMethod} | Status: {self.status}"
